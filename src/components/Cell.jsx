@@ -9,7 +9,8 @@ export default function Cell(props){
         'padding': '20px',
         'fontSize': '30px',
         'textAlign': 'center'}
-    }onClick={() => props.handlePress(this)}
+    }onClick={() => props.handlePress()}
+    id = {props.id}
     ></div>
   )
 }

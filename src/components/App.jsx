@@ -1,7 +1,5 @@
 import React from 'react';
-import reactDOM from 'react-dom';
 import '../App.css';
-import Grid from './Grid';
 import Cell from './Cell';
 
 class App extends React.Component {
@@ -12,7 +10,9 @@ class App extends React.Component {
       selectedColor: "white",
       rows: 3,
       cols: 3,
-      hold: false
+      totalCells: 9,
+      hold: false,
+      cells: [{id: "0"},{id: "1"},{id: "2"},{id: "3"},{id: "4"},{id: "5"},{id: "6"},{id: "7"},{id: "8"}]
     };
   }
 
@@ -95,19 +95,56 @@ class App extends React.Component {
   }
 
   updateCells = (cellNum,mode) =>{
-    const gridDiv = document.querySelector("#grid");
-    let cells = [];
-    for(let i = 0; i < cellNum; i++){
-        cells.push(<Cell id={i} handlePress={this.handlePress}></Cell>);
+    if(mode === "A"){
+      let cellCount = this.state.totalCells;
+      for(let i = cellCount; i < (cellNum + cellCount); i++){
+        const newData = {id: {cellCount}}
+        this.setState(prevState =>({cells: [...prevState.cells,newData]}))
+      }
     }
-    reactDOM.render(cells,gridDiv);
   }
 
-  handlePress = (node) =>{
-    console.log(node);
+  handlePress = () =>{
+    console.log("nothing yet");
   }
 
   render(){
+    return (
+      <div className="App">
+        <div 
+        className="grid-container" 
+        id="grid" 
+        style={
+          {'display': 'grid',
+          'gridTemplateColumns': 'auto auto auto',
+          'gridTemplateRows': 'auto auto auto',
+          'backgroundColor': '#2196F3',
+          'padding': '10px'}
+        }>
+          {this.state.cells.map(cell => {
+              return (
+              <Cell id={cell.id} handlePress={this.handlePress}/>
+              )
+            })
+          }
+        </div>
+        <button value="1" onClick={this.handleClick}>Add a row</button>
+        <button value="2" onClick={this.handleClick}>Add a col</button>
+        <button value="3" onClick={this.handleClick}>Remove a row</button>
+        <button value="4" onClick={this.handleClick}>Remove a col</button>
+        <label htmlFor="colors">Choose a color:</label>
+        <select name="colors" id="colors" onChange={this.handleChange}>
+          <option value="white">Default Color</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="red">Red</option>
+        </select>
+        <button value="5" onClick={this.handleClick}>Set all cells to selected color</button>
+      </div>
+    );
+  }
+  /*render(){
     return (
       <div className="App">
         <Grid
@@ -128,7 +165,7 @@ class App extends React.Component {
         <button value="5" onClick={this.handleClick}>Set all cells to selected color</button>
       </div>
     );
-  }
+  }*/
 }
 
 export default App;
