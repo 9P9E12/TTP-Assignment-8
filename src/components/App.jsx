@@ -8,6 +8,8 @@ class App extends React.Component {
     super();
     this.state ={
       selectedColor: "white",
+      rowCSS: "auto auto auto",
+      colCSS: "auto auto auto",
       rows: 3,
       cols: 3,
       totalCells: 9,
@@ -24,41 +26,35 @@ class App extends React.Component {
     //Depending on the button's value we know what we have to edit
     switch(changeType){
       case "1": //Increment Rows
-        console.log("Previous rows: " + prevRow);
         this.setState({rows: prevRow + 1}, () =>{
-          console.log("Updated rows: " + this.state.rows);
           this.updateRows();
           this.updateCells(this.state.cols,"A");
         });
         break;
       case "2": //Increment Cols
-        console.log("Previous cols: " + prevCol);
         this.setState({cols: prevCol + 1}, () =>{
-          console.log("Updated cols: " + this.state.cols);
           this.updateCols();
           this.updateCells(this.state.rows,"A");
         });
         break;
       case "3": //Decrement Rows
         if(prevRow){
-        console.log("Previous rows: " + prevRow);
         this.setState({rows: prevRow - 1}, () =>{
-          console.log("Updated rows: " + this.state.rows);
           this.updateRows();
           this.updateCells(this.state.cols,"R");
         });}
         break;
       case "4": //Decrement Cols
         if(prevCol){
-        console.log("Previous cols: " + prevCol);
         this.setState({cols: prevCol - 1}, () =>{
-          console.log("Updated cols: " + this.state.cols);
           this.updateCols();
           this.updateCells(this.state.rows,"R");
         });}
         break;
-      case "5": //Set the background color of each cell to the selectedColor
+      case "5": //Set the background color of each uncolored cell to the selectedColor
         console.log("Set all colors clicked");
+        break;
+      case "6": //Set background color of each cell to the selected color
         break;
       default: //Something broke
         console.log("Something went wrong");
@@ -76,7 +72,7 @@ class App extends React.Component {
     for(let i = 0; i < this.state.cols; i++){
       columns.push("auto");
     }
-    document.querySelector("#grid").style.gridTemplateColumns = columns.join(" ");
+    this.setState({colCSS: columns.join(" ")})
   }
 
   updateRows = () =>{
@@ -84,7 +80,7 @@ class App extends React.Component {
     for(let i = 0; i < this.state.rows; i++){
       rows.push("auto");
     }
-    document.querySelector("#grid").style.gridTemplateRows = rows.join(" ");
+    this.setState({rowCSS: rows.join(" ")})
   }
 
   updateCells = (cellNum,mode) =>{
@@ -118,8 +114,8 @@ class App extends React.Component {
         id="grid" 
         style={
           {'display': 'grid',
-          'gridTemplateColumns': 'auto auto auto',
-          'gridTemplateRows': 'auto auto auto',
+          'gridTemplateColumns': this.state.colCSS,
+          'gridTemplateRows': this.state.rowCSS,
           'backgroundColor': '#2196F3',
           'padding': '10px'}
         }>
@@ -142,7 +138,8 @@ class App extends React.Component {
           <option value="blue">Blue</option>
           <option value="red">Red</option>
         </select>
-        <button value="5" onClick={this.handleClick}>Set all cells to selected color</button>
+        <button value="5" onClick={this.handleClick}>Set all <b>uncolored</b> cells to selected color</button>
+        <button value="6" onClick={this.handleClick}>Set <b><i>ALL</i></b> cells to selected color</button>
       </div>
     );
   }
