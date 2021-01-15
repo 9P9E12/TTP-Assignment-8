@@ -12,7 +12,7 @@ class App extends React.Component {
       cols: 3,
       totalCells: 9,
       hold: false,
-      cells: [{id: "0"},{id: "1"},{id: "2"},{id: "3"},{id: "4"},{id: "5"},{id: "6"},{id: "7"},{id: "8"}]
+      cells: [{"id": "0"},{"id": "1"},{"id": "2"},{"id": "3"},{"id": "4"},{"id": "5"},{"id": "6"},{"id": "7"},{"id": "8"}]
     };
   }
 
@@ -98,9 +98,18 @@ class App extends React.Component {
     if(mode === "A"){
       let cellCount = this.state.totalCells;
       for(let i = cellCount; i < (cellNum + cellCount); i++){
-        const newData = {id: {cellCount}}
+        const newData = {id: i}
         this.setState(prevState =>({cells: [...prevState.cells,newData]}))
       }
+      this.setState({totalCells: this.state.totalCells+cellNum})
+    }
+    if(mode === "R"){
+      for(let i = 0; i < cellNum; i++){
+        let oldCells = this.state.cells
+        oldCells.pop();
+        this.setState({cells: oldCells})
+      }
+      this.setState({totalCells: this.state.totalCells-cellNum})
     }
   }
 
@@ -122,8 +131,9 @@ class App extends React.Component {
           'padding': '10px'}
         }>
           {this.state.cells.map(cell => {
+            console.log(cell.id);
               return (
-              <Cell id={cell.id} handlePress={this.handlePress}/>
+              <Cell id={cell.id} handlePress={this.handlePress} key={cell.id}/>
               )
             })
           }
