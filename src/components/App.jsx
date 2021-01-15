@@ -113,8 +113,8 @@ class App extends React.Component {
     }
   }
 
-  handlePress = () =>{
-    console.log("nothing yet");
+  handlePress = (callerID) =>{
+    console.log(callerID);
   }
 
   render(){
@@ -131,7 +131,6 @@ class App extends React.Component {
           'padding': '10px'}
         }>
           {this.state.cells.map(cell => {
-            console.log(cell.id);
               return (
               <Cell id={cell.id} handlePress={this.handlePress} key={cell.id}/>
               )
