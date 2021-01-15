@@ -1,7 +1,7 @@
-import React from 'react'
-import Cell from './Cell'
+import React from 'react';
+import Cell from './Cell';
 
-export default function Grid(props){
+function Grid(props){
   return (
     <div 
     className="grid-container" 
@@ -13,15 +13,16 @@ export default function Grid(props){
     'backgroundColor': '#2196F3',
     'padding': '10px'}
     }>
-      <Cell/>
-      <Cell/>
-      <Cell/>
-      <Cell/>
-      <Cell/>
-      <Cell/>
-      <Cell/>
-      <Cell/>
-      <Cell/>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
+      <Cell handlePress={props.handlePress}></Cell>
     </div>
   )
 }
+export default Grid;
