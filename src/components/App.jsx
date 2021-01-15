@@ -143,28 +143,6 @@ class App extends React.Component {
       </div>
     );
   }
-  /*render(){
-    return (
-      <div className="App">
-        <Grid
-          handlePress={this.handlePress}
-        ></Grid>
-        <button value="1" onClick={this.handleClick}>Add a row</button>
-        <button value="2" onClick={this.handleClick}>Add a col</button>
-        <button value="3" onClick={this.handleClick}>Remove a row</button>
-        <button value="4" onClick={this.handleClick}>Remove a col</button>
-        <label htmlFor="colors">Choose a color:</label>
-        <select name="colors" id="colors" onChange={this.handleChange}>
-          <option value="white">Default Color</option>
-          <option value="yellow">Yellow</option>
-          <option value="green">Green</option>
-          <option value="blue">Blue</option>
-          <option value="red">Red</option>
-        </select>
-        <button value="5" onClick={this.handleClick}>Set all cells to selected color</button>
-      </div>
-    );
-  }*/
 }
 
 export default App;
