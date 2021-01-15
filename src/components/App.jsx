@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import Table from './Table';
+import Grid from './Grid';
 
 class App extends React.Component {
   //Create values that we need to keep track of
@@ -22,24 +22,25 @@ class App extends React.Component {
     //Depending on the button's value we know what we have to edit
     switch(changeType){
       case "1": //Increment Rows
-        if(prevRow){
         console.log("Previous rows: " + prevRow);
         this.setState({rows: prevRow + 1}, () =>{
           console.log("Updated rows: " + this.state.rows);
-        });}
+          this.updateRows();
+        });
         break;
       case "2": //Increment Cols
-        if(prevCol){
         console.log("Previous cols: " + prevCol);
         this.setState({cols: prevCol + 1}, () =>{
           console.log("Updated cols: " + this.state.cols);
-        });}
+          this.updateCols();
+        });
         break;
       case "3": //Decrement Rows
         if(prevRow){
         console.log("Previous rows: " + prevRow);
         this.setState({rows: prevRow - 1}, () =>{
           console.log("Updated rows: " + this.state.rows);
+          this.updateRows();
         });}
         break;
       case "4": //Decrement Cols
@@ -47,6 +48,7 @@ class App extends React.Component {
         console.log("Previous cols: " + prevCol);
         this.setState({cols: prevCol - 1}, () =>{
           console.log("Updated cols: " + this.state.cols);
+          this.updateCols();
         });}
         break;
       case "5": //Set the background color of each cell to the selectedColor
@@ -68,10 +70,32 @@ class App extends React.Component {
     });
   }
 
+  updateCols = () =>{
+    let columns = [];
+    for(let i = 0; i < this.state.cols; i++){
+      columns.push("auto");
+    }
+    document.querySelector("#grid").style.gridTemplateColumns = columns.join(" ");
+    console.log(document.querySelector("#grid").style.gridTemplateColumns);
+  }
+
+  updateRows = () =>{
+    let rows = [];
+    for(let i = 0; i < this.state.rows; i++){
+      rows.push("auto");
+    }
+    document.querySelector("#grid").style.gridTemplateRows = rows.join(" ");
+    console.log(document.querySelector("#grid").style.gridTemplateRows);
+  }
+
+  displayCells = () =>{
+
+  }
+
   render(){
     return (
       <div className="App">
-        <Table/>
+        <Grid/>
         <button value="1" onClick={this.handleClick}>Add a row</button>
         <button value="2" onClick={this.handleClick}>Add a col</button>
         <button value="3" onClick={this.handleClick}>Remove a row</button>
