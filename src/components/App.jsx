@@ -3,6 +3,7 @@ import '../App.css';
 import Table from './Table';
 
 class App extends React.Component {
+  //Create values that we need to keep track of
   constructor(){
     super();
     this.state ={
@@ -14,58 +15,76 @@ class App extends React.Component {
   }
 
   handleClick = (event) =>{
-    let changeType = event.target.className;
+    //Store these values
+    let changeType = event.target.value;
+    let prevRow = this.state.rows;
+    let prevCol = this.state.cols;
+    //Depending on the button's value we know what we have to edit
     switch(changeType){
-      case "1":
-        console.log("increment row");
+      case "1": //Increment Rows
+        if(prevRow){
+        console.log("Previous rows: " + prevRow);
+        this.setState({rows: prevRow + 1}, () =>{
+          console.log("Updated rows: " + this.state.rows);
+        });}
         break;
-      case "2":
-        console.log("increment col");
+      case "2": //Increment Cols
+        if(prevCol){
+        console.log("Previous cols: " + prevCol);
+        this.setState({cols: prevCol + 1}, () =>{
+          console.log("Updated cols: " + this.state.cols);
+        });}
         break;
-      case "3":
-        console.log("decrement row");
+      case "3": //Decrement Rows
+        if(prevRow){
+        console.log("Previous rows: " + prevRow);
+        this.setState({rows: prevRow - 1}, () =>{
+          console.log("Updated rows: " + this.state.rows);
+        });}
         break;
-      case "4":
-        console.log("decrement col");
+      case "4": //Decrement Cols
+        if(prevCol){
+        console.log("Previous cols: " + prevCol);
+        this.setState({cols: prevCol - 1}, () =>{
+          console.log("Updated cols: " + this.state.cols);
+        });}
         break;
-      default:
+      case "5": //Set the background color of each cell to the selectedColor
+        console.log("Set all colors clicked");
+        break;
+      default: //Something broke
         console.log("Something went wrong");
         break;
     }
   }
-
-  incrementRow = (event) =>{
-    this.setState(state =>{
-      return {rows: state.rows+1}
+  //handleChange handles the changing of the selected element in the dropdown menu
+  handleChange = (event) =>{
+    //console log previous color
+    console.log("Previous color: " + this.state.selectedColor);
+    //Update current color
+    this.setState({selectedColor: event.target.value }, () =>{
+      //console log current color
+      console.log("Updated cols: " + this.state.selectedColor);
     });
-  }
-
-  incrementCol(){
-    this.setState(state =>({
-      cols: state.cols+1
-    }));
-  }
-
-  decrementRow(){
-    this.setState(state =>({
-      rows: state.rows-1
-    }));
-  }
-
-  decrementCol(){
-    this.setState(state =>({
-      col: state.cols-1
-    }));
   }
 
   render(){
     return (
       <div className="App">
         <Table/>
-        <button className ="1" onClick={this.handleClick}>Add a row</button>
-        <button className ="2" onClick={this.handleClick}>Add a col</button>
-        <button className ="3" onClick={this.handleClick}>Remove a row</button>
-        <button className ="4" onClick={this.handleClick}>Remove a col</button>
+        <button value="1" onClick={this.handleClick}>Add a row</button>
+        <button value="2" onClick={this.handleClick}>Add a col</button>
+        <button value="3" onClick={this.handleClick}>Remove a row</button>
+        <button value="4" onClick={this.handleClick}>Remove a col</button>
+        <label htmlFor="colors">Choose a color:</label>
+        <select name="colors" id="colors" onChange={this.handleChange}>
+          <option value="white">Default Color</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="red">Red</option>
+        </select>
+        <button value="5" onClick={this.handleClick}>Set all cells to selected color</button>
       </div>
     );
   }
