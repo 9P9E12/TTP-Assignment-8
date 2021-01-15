@@ -1,6 +1,8 @@
 import React from 'react';
+import reactDOM from 'react-dom';
 import '../App.css';
 import Grid from './Grid';
+import Cell from './Cell';
 
 class App extends React.Component {
   //Create values that we need to keep track of
@@ -26,6 +28,7 @@ class App extends React.Component {
         this.setState({rows: prevRow + 1}, () =>{
           console.log("Updated rows: " + this.state.rows);
           this.updateRows();
+          this.updateCells(this.state.cols);
         });
         break;
       case "2": //Increment Cols
@@ -88,8 +91,14 @@ class App extends React.Component {
     console.log(document.querySelector("#grid").style.gridTemplateRows);
   }
 
-  displayCells = () =>{
-
+  updateCells = (numOfCells) =>{
+    const gridDiv = document.querySelector("#grid");
+    /*
+    let cells = [];
+    for(let i = 0; i < numOfCells; i++){
+        cells.push(<Cell id={i}></Cell>);
+    }
+    reactDOM.render(cells,gridDiv);*/
   }
 
   render(){
