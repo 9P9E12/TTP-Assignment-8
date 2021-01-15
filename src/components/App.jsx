@@ -3,7 +3,7 @@ import '../App.css';
 import Cell from './Cell';
 
 class App extends React.Component {
-  //Create values that we need to keep track of
+  //Create values that we need to keep track of, including the 9 initial cells
   constructor(){
     super();
     this.state ={
@@ -60,8 +60,6 @@ class App extends React.Component {
       case "5": //Set the background color of each cell to the selectedColor
         console.log("Set all colors clicked");
         break;
-      case "6": //Change background color of clicked node to selectedColor
-        break;
       default: //Something broke
         console.log("Something went wrong");
         break;
@@ -69,13 +67,8 @@ class App extends React.Component {
   }
   //handleChange handles the changing of the selected element in the dropdown menu
   handleChange = (event) =>{
-    //console log previous color
-    console.log("Previous color: " + this.state.selectedColor);
     //Update current color
-    this.setState({selectedColor: event.target.value }, () =>{
-      //console log current color
-      console.log("Updated cols: " + this.state.selectedColor);
-    });
+    this.setState({selectedColor: event.target.value });
   }
 
   updateCols = () =>{
@@ -114,7 +107,7 @@ class App extends React.Component {
   }
 
   handlePress = (callerID) =>{
-    console.log(callerID);
+    document.getElementById(callerID.toString()).style.backgroundColor = this.state.selectedColor;
   }
 
   render(){
